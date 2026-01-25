@@ -1,32 +1,52 @@
 'use client'
 
 export default function Home() {
-
   const handleSubmit = () => {
-    window.alert("Submitted!")
+    window.alert('Submitted!')
   }
 
   return (
-    <div class="container text-center mt-5">
-      <h1 class="text-center pb-2 mb-4 border-bottom">Redux Weather</h1>
+    <div className="container text-center mt-5">
+      <h1 className="text-center pb-2 mb-4 border-bottom">Redux Weather</h1>
 
       <form onSubmit={handleSubmit}>
-        <div class="row justify-content-center">
-          <div class="col-sm-4 my-1">
+        <div className="row justify-content-center">
+          <div className="col-sm-4 my-1">
             <input
               type="text"
-              class="form-control"
+              className="form-control"
               id="cityInput"
               placeholder="Enter City"
             />
           </div>
-          <div class="col-auto my-1">
-            <button type="submit" class="btn btn-primary" id="searchBtn">
+          <div className="col-auto my-1">
+            <button type="submit" className="btn btn-primary" id="searchBtn">
               Submit
             </button>
           </div>
         </div>
       </form>
+
+      <div>
+        <table className="table mt-5">
+          <thead>
+            <tr>
+              <th scope="col">City</th>
+              <th scope="col">Temperature (F)</th>
+              <th scope="col">Pressure (hPa)</th>
+              <th scope="col">Humidity (%)</th>
+            </tr>
+          </thead>
+          <tbody className="table-group-divider">
+            <tr>
+              <th scope="row"></th>
+              <td></td>
+              <td></td>
+              <td></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
     </div>
   )
 }
