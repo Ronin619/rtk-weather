@@ -2,8 +2,7 @@
   "name": "parsity_rtk_weather",
   "version": "0.1.0",
   "private": true,
-
-    "prettier": {
+  "prettier": {
     "semi": false,
     "singleQuote": true,
     "tabWidth": 2,
@@ -33,7 +32,8 @@
     "next": "13.5.3",
     "react": "18.2.0",
     "react-dom": "18.2.0",
-    "react-redux": "^9.2.0"
+    "react-redux": "^9.2.0",
+    "react-sparklines": "^1.7.0"
   },
   "devDependencies": {
     "eslint-config-prettier": "^10.1.8",

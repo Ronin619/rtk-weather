@@ -1,12 +1,18 @@
 'use client'
 import axios from 'axios'
+import data from './data'
+import {
+  Sparklines,
+  SparklinesLine,
+  SparklinesReferenceLine,
+} from 'react-sparklines'
 
 const API_KEY = process.env.NEXT_PUBLIC_OPENWEATHER_API_KEY
 
 export default function Home() {
   const handleSubmit = async (e) => {
     e.preventDefault()
-    console.log('Submitted!')
+    console.log(data)
   }
 
   return (
@@ -43,10 +49,43 @@ export default function Home() {
           </thead>
           <tbody className="table-group-divider">
             <tr>
-              <th scope="row"></th>
-              <td></td>
-              <td></td>
-              <td></td>
+              <th scope="row">{data.city}</th>
+              <td>
+                <Sparklines
+                  data={data.temperature}
+                  limit={5}
+                  width={100}
+                  height={20}
+                  margin={5}
+                >
+                  <SparklinesLine color="blue" />
+                  <SparklinesReferenceLine type="mean" />
+                </Sparklines>
+              </td>
+              <td>
+                <Sparklines
+                  data={data.pressure}
+                  limit={5}
+                  width={100}
+                  height={20}
+                  margin={5}
+                >
+                  <SparklinesLine color="green" />
+                  <SparklinesReferenceLine type="mean" />
+                </Sparklines>
+              </td>
+              <td>
+                <Sparklines
+                  data={data.humidity}
+                  limit={5}
+                  width={100}
+                  height={20}
+                  margin={5}
+                >
+                  <SparklinesLine color="red" />
+                  <SparklinesReferenceLine type="mean" />
+                </Sparklines>
+              </td>
             </tr>
           </tbody>
         </table>
