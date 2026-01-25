@@ -1,8 +1,12 @@
 'use client'
+import axios from 'axios'
+
+const API_KEY = process.env.NEXT_PUBLIC_OPENWEATHER_API_KEY
 
 export default function Home() {
-  const handleSubmit = () => {
-    window.alert('Submitted!')
+  const handleSubmit = async (e) => {
+    e.preventDefault()
+    console.log('Submitted!')
   }
 
   return (
