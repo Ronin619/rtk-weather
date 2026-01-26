@@ -1,8 +1,4 @@
-import {
-  Sparklines,
-  SparklinesLine,
-  SparklinesReferenceLine,
-} from 'react-sparklines'
+import WeatherDataRow from './WeatherDataRow'
 import { useSelector } from 'react-redux'
 
 export default function WeatherTable() {
@@ -19,50 +15,11 @@ export default function WeatherTable() {
         </tr>
       </thead>
       <tbody className="table-group-divider">
-        {weatherData.length > 0 &&
-          weatherData.map((data) => {
-            return (
-              <tr key={data.id}>
-                <th scope="row">{data.city}</th>
-                <td>
-                  <Sparklines
-                    data={data.temperature}
-                    limit={5}
-                    width={100}
-                    height={20}
-                    margin={5}
-                  >
-                    <SparklinesLine color="blue" />
-                    <SparklinesReferenceLine type="mean" />
-                  </Sparklines>
-                </td>
-                <td>
-                  <Sparklines
-                    data={data.pressure}
-                    limit={5}
-                    width={100}
-                    height={20}
-                    margin={5}
-                  >
-                    <SparklinesLine color="green" />
-                    <SparklinesReferenceLine type="mean" />
-                  </Sparklines>
-                </td>
-                <td>
-                  <Sparklines
-                    data={data.humidity}
-                    limit={5}
-                    width={100}
-                    height={20}
-                    margin={5}
-                  >
-                    <SparklinesLine color="red" />
-                    <SparklinesReferenceLine type="mean" />
-                  </Sparklines>
-                </td>
-              </tr>
-            )
-          })}
+        {weatherData.length > 0
+          ? weatherData.map((data) => (
+              <WeatherDataRow key={data.id} data={data} />
+            ))
+          : null}
       </tbody>
     </table>
   )
