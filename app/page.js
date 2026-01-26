@@ -1,42 +1,19 @@
 'use client'
-import axios from 'axios'
 import data from './data'
 import {
   Sparklines,
   SparklinesLine,
   SparklinesReferenceLine,
 } from 'react-sparklines'
+import Form from './components/Form'
 
 const API_KEY = process.env.NEXT_PUBLIC_OPENWEATHER_API_KEY
 
 export default function Home() {
-  const handleSubmit = async (e) => {
-    e.preventDefault()
-    console.log(data)
-  }
-
   return (
     <div className="container text-center mt-5">
       <h1 className="text-center pb-2 mb-4 border-bottom">Redux Weather</h1>
-
-      <form onSubmit={handleSubmit}>
-        <div className="row justify-content-center">
-          <div className="col-sm-4 my-1">
-            <input
-              type="text"
-              className="form-control"
-              id="cityInput"
-              placeholder="Enter City"
-            />
-          </div>
-          <div className="col-auto my-1">
-            <button type="submit" className="btn btn-primary" id="searchBtn">
-              Submit
-            </button>
-          </div>
-        </div>
-      </form>
-
+      <Form />
       <div>
         <table className="table mt-5">
           <thead>
