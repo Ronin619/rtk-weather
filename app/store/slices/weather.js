@@ -4,7 +4,7 @@ import { v4 as uuidv4 } from 'uuid'
 export const weatherSlice = createSlice({
   name: 'weather',
   initialState: {
-    weather: [
+    weatherData: [
       {
         id: uuidv4(),
         city: 'New York',
