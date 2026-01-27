@@ -3,13 +3,10 @@ import {
   SparklinesLine,
   SparklinesReferenceLine,
 } from 'react-sparklines'
-import { useSelector } from 'react-redux'
 
-export default function WeatherDataRow({ key, data }) {
-  const weatherData = useSelector((state) => state.weather.weatherData)
-
+export default function WeatherDataRow({ data }) {
   return (
-    <tr key={key}>
+    <tr>
       <th scope="row">{data.city}</th>
       <td>
         <Sparklines

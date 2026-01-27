@@ -1,9 +1,6 @@
 'use client'
-import data from './data'
 import Form from './components/Form'
 import WeatherTable from './components/WeatherTable'
-
-const API_KEY = process.env.NEXT_PUBLIC_OPENWEATHER_API_KEY
 
 export default function Home() {
   return (

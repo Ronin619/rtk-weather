@@ -1,7 +1,16 @@
+import { useState } from 'react'
+import { useDispatch } from 'react-redux'
+import { fetchWeatherData } from '../store/slices/weather'
+
 export default function Form() {
-  const handleSubmit = async (e) => {
+  const [city, setCity] = useState('')
+
+  const dispatch = useDispatch()
+
+  const handleSubmit = (e) => {
     e.preventDefault()
-    console.log(data)
+    dispatch(fetchWeatherData(city))
+    setCity('')
   }
 
   return (
@@ -12,7 +21,9 @@ export default function Form() {
             type="text"
             className="form-control"
             id="cityInput"
+            value={city}
             placeholder="Enter City"
+            onChange={(e) => setCity(e.target.value)}
           />
         </div>
         <div className="col-auto my-1">

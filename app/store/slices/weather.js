@@ -1,5 +1,18 @@
-import { createSlice } from '@reduxjs/toolkit'
+import axios from 'axios'
+import { createSlice, createAsyncThunk } from '@reduxjs/toolkit'
 import { v4 as uuidv4 } from 'uuid'
+
+export const fetchWeatherData = createAsyncThunk(
+  'weather/fetchWeatherData',
+  async (city) => {
+    const API_KEY = process.env.NEXT_PUBLIC_API_KEY
+
+    const response = await axios.get(
+      `https://api.openweathermap.org/data/2.5/forecast?q=${city}&appid=${API_KEY}&units=imperial`
+    )
+    return response.data
+  }
+)
 
 export const weatherSlice = createSlice({
   name: 'weather',
@@ -30,6 +43,20 @@ export const weatherSlice = createSlice({
   },
   reducers: {
     init: (state) => state,
+  },
+  extraReducers: (builder) => {
+    builder
+      .addCase(fetchWeatherData.pending, (state) => {
+        state.status = 'loading'
+      })
+      .addCase(fetchWeatherData.fulfilled, (state, action) => {
+        state.status = 'succeeded'
+        state.weatherData = action.payload
+      })
+      .addCase(fetchWeatherData.rejected, (state, action) => {
+        state.status = 'failed'
+        state.error = action.error.message
+      })
   },
 })
 
