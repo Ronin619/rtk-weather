@@ -13,6 +13,7 @@ export const fetchWeatherData = createAsyncThunk(
     const FiveDayWeatherData = []
     const daysList = response.data.list
     const cityWeatherData = {
+      id: uuidv4(),
       city: response.data.city.name,
       temperature: [],
       humidity: [],
@@ -52,7 +53,7 @@ export const fetchWeatherData = createAsyncThunk(
 export const weatherSlice = createSlice({
   name: 'weather',
   initialState: {
-    weatherData: null,
+    weatherData: [],
     status: 'idle',
     error: null,
   },
@@ -64,7 +65,7 @@ export const weatherSlice = createSlice({
       })
       .addCase(fetchWeatherData.fulfilled, (state, action) => {
         state.status = 'succeeded'
-        state.weatherData = action.payload
+        state.weatherData.push(action.payload)
       })
       .addCase(fetchWeatherData.rejected, (state, action) => {
         state.status = 'failed'
