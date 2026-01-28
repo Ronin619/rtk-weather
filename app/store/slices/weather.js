@@ -10,40 +10,53 @@ export const fetchWeatherData = createAsyncThunk(
     const response = await axios.get(
       `https://api.openweathermap.org/data/2.5/forecast?q=${city}&appid=${API_KEY}&units=imperial`
     )
-    return response.data
+    const FiveDayWeatherData = []
+    const daysList = response.data.list
+    const cityWeatherData = {
+      city: response.data.city.name,
+      temperature: [],
+      humidity: [],
+      pressure: [],
+    }
+    // groups weather data by date
+    daysList.forEach((data) => {
+      const currentDate = data.dt_txt.split(' ')[0]
+      if (
+        FiveDayWeatherData.length === 0 ||
+        FiveDayWeatherData[FiveDayWeatherData.length - 1][0].dt_txt.split(
+          ' '
+        )[0] !== currentDate
+      ) {
+        FiveDayWeatherData.push([data])
+      } else {
+        FiveDayWeatherData[FiveDayWeatherData.length - 1].push(data)
+      }
+    })
+    // creates an object of 5 days worth or weather data.
+    FiveDayWeatherData.forEach((day) => {
+      const avgTemp =
+        day.reduce((sum, item) => sum + item.main.temp, 0) / day.length
+      const avgHumidity =
+        day.reduce((sum, item) => sum + item.main.humidity, 0) / day.length
+      const avgPressure =
+        day.reduce((sum, item) => sum + item.main.pressure, 0) / day.length
+
+      cityWeatherData.temperature.push(Math.round(avgTemp))
+      cityWeatherData.humidity.push(Math.round(avgHumidity))
+      cityWeatherData.pressure.push(Math.round(avgPressure))
+    })
+    return cityWeatherData
   }
 )
 
 export const weatherSlice = createSlice({
   name: 'weather',
   initialState: {
-    weatherData: [
-      {
-        id: uuidv4(),
-        city: 'New York',
-        temperature: [56, 54, 50, 45, 58],
-        pressure: [78, 85, 46, 55, 65],
-        humidity: [1019, 1020, 1025, 1018, 1022],
-      },
-      {
-        id: uuidv4(),
-        city: 'Boston',
-        temperature: [46, 4, 40, 45, 48],
-        pressure: [70, 75, 72, 83, 70],
-        humidity: [1000, 1010, 1005, 1007, 1011],
-      },
-      {
-        id: uuidv4(),
-        city: 'Atlanta',
-        temperature: [76, 74, 70, 75, 78],
-        pressure: [88, 85, 86, 85, 85],
-        humidity: [1030, 1030, 1035, 1038, 1032],
-      },
-    ],
+    weatherData: null,
+    status: 'idle',
+    error: null,
   },
-  reducers: {
-    init: (state) => state,
-  },
+  reducers: {},
   extraReducers: (builder) => {
     builder
       .addCase(fetchWeatherData.pending, (state) => {

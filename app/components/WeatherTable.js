@@ -14,13 +14,7 @@ export default function WeatherTable() {
           <th scope="col">Humidity (%)</th>
         </tr>
       </thead>
-      <tbody className="table-group-divider">
-        {weatherData.length > 0
-          ? weatherData.map((data) => (
-              <WeatherDataRow key={data.id} data={data} />
-            ))
-          : null}
-      </tbody>
+      <tbody className="table-group-divider"></tbody>
     </table>
   )
 }
