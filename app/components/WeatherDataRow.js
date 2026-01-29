@@ -5,6 +5,9 @@ import {
 } from 'react-sparklines'
 
 export default function WeatherDataRow({ data }) {
+  const handleSetDefault = () => {
+    console.log('Clicked!')
+  }
   return (
     <tr>
       <th scope="row">{data.city}</th>
@@ -43,6 +46,15 @@ export default function WeatherDataRow({ data }) {
           <SparklinesLine color="red" />
           <SparklinesReferenceLine type="mean" />
         </Sparklines>
+      </td>
+      <td>
+        <button
+          type="button"
+          className="btn btn-outline-secondary default-Btn btn-sm"
+          onClick={handleSetDefault}
+        >
+          Set Default
+        </button>
       </td>
     </tr>
   )
