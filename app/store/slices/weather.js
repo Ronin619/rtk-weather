@@ -33,7 +33,7 @@ export const fetchWeatherData = createAsyncThunk(
         FiveDayWeatherData[FiveDayWeatherData.length - 1].push(data)
       }
     })
-    // creates an object of 5 days worth or weather data.
+    // creates an object of 5 days weather data.
     FiveDayWeatherData.forEach((day) => {
       const avgTemp =
         day.reduce((sum, item) => sum + item.main.temp, 0) / day.length
@@ -65,7 +65,13 @@ export const weatherSlice = createSlice({
       })
       .addCase(fetchWeatherData.fulfilled, (state, action) => {
         state.status = 'succeeded'
-        state.weatherData.push(action.payload)
+        if (
+          !state.weatherData.some((obj) => obj.city === action.payload.city)
+        ) {
+          state.weatherData.push(action.payload)
+        } else {
+          window.alert(`You've already searched ${action.payload.city}`)
+        }
       })
       .addCase(fetchWeatherData.rejected, (state, action) => {
         state.status = 'failed'
