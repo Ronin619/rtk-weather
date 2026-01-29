@@ -12,6 +12,7 @@ export default function WeatherTable() {
           <th scope="col">Temperature (F)</th>
           <th scope="col">Pressure (hPa)</th>
           <th scope="col">Humidity (%)</th>
+          <th scope="col"></th>
         </tr>
       </thead>
       <tbody className="table-group-divider">
