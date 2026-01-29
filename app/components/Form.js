@@ -1,23 +1,29 @@
 import { useState } from 'react'
 import { useDispatch } from 'react-redux'
 import { fetchWeatherData } from '../store/slices/weather'
+import { useForm } from 'react-hook-form'
 
 export default function Form() {
+  const {
+    register,
+    handleSubmit,
+    formState: { error },
+  } = useForm()
+  const dispatch = useDispatch()
   const [city, setCity] = useState('')
 
-  const dispatch = useDispatch()
-
-  const handleSubmit = (e) => {
+  const handleFormSubmit = (e) => {
     e.preventDefault()
     dispatch(fetchWeatherData(city))
     setCity('')
   }
 
   return (
-    <form onSubmit={handleSubmit}>
+    <form onSubmit={handleSubmit(handleFormSubmit)}>
       <div className="row justify-content-center">
         <div className="col-sm-4 my-1">
           <input
+            {...register('city', { required: true })}
             type="text"
             className="form-control"
             id="cityInput"
