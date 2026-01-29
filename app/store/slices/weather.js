@@ -18,6 +18,7 @@ export const fetchWeatherData = createAsyncThunk(
       temperature: [],
       humidity: [],
       pressure: [],
+      default: false,
     }
     // groups weather data by date
     daysList.forEach((data) => {
