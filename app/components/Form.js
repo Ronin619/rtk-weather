@@ -6,18 +6,24 @@ import { yupResolver } from '@hookform/resolvers/yup'
 import * as yup from 'yup'
 
 export default function Form() {
+  const schema = yup
+    .object({
+      city: yup.string().required().min(3),
+    })
+    .required()
+
   const {
     register,
     handleSubmit,
-    formState: { error },
+    formState: { errors },
   } = useForm({
-    resolver: yupResolver(),
+    resolver: yupResolver(schema),
   })
+
   const dispatch = useDispatch()
   const [city, setCity] = useState('')
 
-  const handleFormSubmit = (e) => {
-    e.preventDefault()
+  const handleFormSubmit = () => {
     dispatch(fetchWeatherData(city))
     setCity('')
   }
