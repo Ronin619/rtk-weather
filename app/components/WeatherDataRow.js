@@ -3,7 +3,6 @@ import {
   SparklinesLine,
   SparklinesReferenceLine,
 } from 'react-sparklines'
-import { useState } from 'react'
 
 export default function WeatherDataRow({ data, onSetDefault }) {
   return (
