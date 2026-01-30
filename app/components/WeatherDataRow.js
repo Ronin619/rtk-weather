@@ -3,11 +3,9 @@ import {
   SparklinesLine,
   SparklinesReferenceLine,
 } from 'react-sparklines'
+import { useState } from 'react'
 
-export default function WeatherDataRow({ data }) {
-  const handleSetDefault = () => {
-    console.log('Clicked!')
-  }
+export default function WeatherDataRow({ data, onSetDefault }) {
   return (
     <tr>
       <th scope="row">{data.city}</th>
@@ -51,7 +49,7 @@ export default function WeatherDataRow({ data }) {
         <button
           type="button"
           className="btn btn-outline-secondary default-Btn btn-sm"
-          onClick={handleSetDefault}
+          onClick={() => onSetDefault(data)}
         >
           Set Default
         </button>
