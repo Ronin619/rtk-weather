@@ -18,7 +18,6 @@ export const fetchWeatherData = createAsyncThunk(
       temperature: [],
       humidity: [],
       pressure: [],
-      default: false,
     }
     // groups weather data by date
     daysList.forEach((data) => {
@@ -66,13 +65,21 @@ export const weatherSlice = createSlice({
       })
       .addCase(fetchWeatherData.fulfilled, (state, action) => {
         state.status = 'succeeded'
-        if (
-          !state.weatherData.some((obj) => obj.city === action.payload.city)
-        ) {
-          state.weatherData.push(action.payload)
-        } else {
+
+        const defaultCity = JSON.parse(localStorage.getItem('defaultCity'))
+
+        const isDefaultCity =
+          defaultCity && action.payload.city === defaultCity.city
+
+        const alreadyExists = state.weatherData.some(
+          (city) => city.city === action.payload.city
+        )
+
+        if (isDefaultCity || alreadyExists) {
           window.alert(`You've already searched ${action.payload.city}`)
+          return
         }
+        state.weatherData.push(action.payload)
       })
       .addCase(fetchWeatherData.rejected, (state, action) => {
         state.status = 'failed'
