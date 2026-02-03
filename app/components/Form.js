@@ -27,7 +27,7 @@ export default function Form() {
     const trimmedCity = city.trim()
     if (!trimmedCity) return
 
-    dispatch(fetchWeatherData(city))
+    dispatch(fetchWeatherData(trimmedCity))
     setCity('')
   }
 
