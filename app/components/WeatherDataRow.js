@@ -5,6 +5,22 @@ import {
 } from 'react-sparklines'
 
 export default function WeatherDataRow({ data, onSetDefault }) {
+  const avgTemp = data.temperature.reduce(
+    (temp, currentTemp) =>
+      Math.round((temp + currentTemp) / data.temperature.length),
+    0
+  )
+  const avgPressure = data.pressure.reduce(
+    (pressure, currentPressure) =>
+      Math.round((pressure + currentPressure) / data.pressure.length),
+    0
+  )
+  const avgHumidity = data.humidity.reduce(
+    (humidity, currentHumidity) =>
+      Math.round((humidity + currentHumidity) / data.humidity.length),
+    0
+  )
+
   return (
     <tr>
       <th scope="row">{data.city}</th>
@@ -19,6 +35,7 @@ export default function WeatherDataRow({ data, onSetDefault }) {
           <SparklinesLine color="blue" />
           <SparklinesReferenceLine type="mean" />
         </Sparklines>
+        <p>{avgTemp} F</p>
       </td>
       <td>
         <Sparklines
@@ -31,6 +48,7 @@ export default function WeatherDataRow({ data, onSetDefault }) {
           <SparklinesLine color="green" />
           <SparklinesReferenceLine type="mean" />
         </Sparklines>
+        <p>{avgPressure} hPa</p>
       </td>
       <td>
         <Sparklines
@@ -43,6 +61,7 @@ export default function WeatherDataRow({ data, onSetDefault }) {
           <SparklinesLine color="red" />
           <SparklinesReferenceLine type="mean" />
         </Sparklines>
+        <p>{avgHumidity} %</p>
       </td>
       <td>
         <button
