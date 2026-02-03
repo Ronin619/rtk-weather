@@ -24,6 +24,9 @@ export default function Form() {
   const [city, setCity] = useState('')
 
   const handleFormSubmit = () => {
+    const trimmedCity = city.trim()
+    if (!trimmedCity) return
+
     dispatch(fetchWeatherData(city))
     setCity('')
   }
